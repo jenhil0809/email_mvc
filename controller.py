@@ -11,13 +11,14 @@ class Controller:
     def save(self, email, password):
         # save an email to the database
         if password == '':
-            raise ValueError
+            raise ValueError('Invalid password')
         try:
             sess = Session(self.engine)
             # save the model
             new_email = EmailAddress(email=email, password=sha256(password.encode('utf-8')).hexdigest())
             sess.add(new_email)
             sess.commit()
+            sess.close()
 
             # show a success message
             return f'The email {email} saved!'

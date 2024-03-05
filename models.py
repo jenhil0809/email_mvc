@@ -1,10 +1,9 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import validates, DeclarativeBase
+from sqlalchemy.orm import validates, declarative_base
 import re
 
 
-class Base(DeclarativeBase):
-    pass
+Base = declarative_base()
 
 
 class EmailAddress(Base):
