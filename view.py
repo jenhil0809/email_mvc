@@ -31,7 +31,7 @@ class View(ttk.Frame):
 
         # message
         self.message_label = ttk.Label(self, text='', foreground='red')
-        self.message_label.grid(row=3, column=0, sticky=tk.W)
+        self.message_label.grid(row=4, column=0, columnspan=2, sticky=tk.W)
 
         # set the controller
         self.controller = None
@@ -48,7 +48,7 @@ class View(ttk.Frame):
         except sqlalchemy.exc.IntegrityError:
             raise self.show_error("Email already inputted")
         except ValueError:
-            raise self.show_error("Invalid email")
+            raise self.show_error("Invalid email/Empty password")
 
     def show_error(self, message):
         # Show an error message
@@ -66,6 +66,7 @@ class View(ttk.Frame):
         # reset the form
         self.email_entry['foreground'] = 'black'
         self.email_var.set('')
+        self.pass_var.set('')
 
     def hide_message(self):
         # Hide the message

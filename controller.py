@@ -10,10 +10,12 @@ class Controller:
 
     def save(self, email, password):
         # save an email to the database
+        if password == '':
+            raise ValueError
         try:
             sess = Session(self.engine)
             # save the model
-            new_email = EmailAddress(email=email, password=sha256(password.encode('utf-8')))
+            new_email = EmailAddress(email=email, password=sha256(password.encode('utf-8')).hexdigest())
             sess.add(new_email)
             sess.commit()
 
