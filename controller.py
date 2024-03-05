@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from models import EmailAddress
 from hashlib import sha256
+import re
 
 
 class Controller:
@@ -9,8 +10,8 @@ class Controller:
         self.engine = create_engine('sqlite:///emails.sqlite', echo=True)
 
     def save(self, email, password):
-        # save an email to the database
-        if password == '':
+        pattern = '^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$£€!%*?&])[A-Za-z0-9@$£€!%*?&]{8,20}$'
+        if not re.match(pattern, password):
             raise ValueError('Invalid password')
         try:
             sess = Session(self.engine)
